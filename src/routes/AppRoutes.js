@@ -4,6 +4,7 @@ import React from "react";
 import Home from "../views/Home";
 import Region from "../views/Region";
 import Card from "../views/Card";
+import { AllPokemons } from "../views/AllPokemons";
 
 function AppRoutes(){
 
@@ -15,6 +16,7 @@ function AppRoutes(){
                 <Screen name='Home' component={Home} options={{title: '', headerTransparent: true, headerShown: false}}/>
                 <Screen name='Region' component={Region} options={{title: '', headerTransparent: true, headerShown: false}}/>
                 <Screen name='Pokemon' component={Card} options={{title: '', headerTransparent: true, headerShown: false}}/>
+                <Screen name='AllPokemons' component={AllPokemons} options={{title: '', headerTransparent: true, headerShown: false}}/>
             </Navigator>
         </NavigationContainer>
     )

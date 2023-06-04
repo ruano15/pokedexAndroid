@@ -6,7 +6,7 @@ export default function ButtonSelect(props){
     return(
         <View style={styles.container}>
             <TouchableOpacity style={styles.Button} onPress={() => {
-                    props.navigation.navigate('Region', {names: props.name})
+                    props.navigation.navigate(`${props.option}`, {names: props.name})
                 }}>
                 <Text style={styles.Text} adjustsFontSizeToFit >
                     {props.name}

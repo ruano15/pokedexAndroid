@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Database from "../database/Database";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import ButtonSelect from "../components/ButtonSelect";
 
 export default function Home({navigation}){
@@ -21,10 +21,11 @@ export default function Home({navigation}){
     }, [])
 
     return(
-        <View style={{flex: 1,alignItems: "center", justifyContent: "center"}}>
+        <ScrollView style={{flex: 1}}>
             {region.map( regions => (
-                <ButtonSelect name={regions.name} navigation={navigation} option="region"/>
+                <ButtonSelect name={regions.name} navigation={navigation} option="Region"/>
             ))}
-        </View>
+            <ButtonSelect name="Pesquisar Pokemons" navigation={navigation} option="AllPokemons"/>
+        </ScrollView>
     )
 }
