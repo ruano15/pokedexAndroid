@@ -10,9 +10,9 @@ export default function Region({route, navigation}){
     const [load, setLoad] = useState(true)
 
     async function getPokemons(){
-        const res = await Database.get(`/pokedex/${route.params.names}`)
+        const res = await Database.get(`/generation/${route.params.names}`)
         try{
-            setPokemons(res.data.pokemon_entries)
+            setPokemons(res.data.pokemon_species)
         }catch(error){
             console.log(error)
         }
@@ -33,7 +33,7 @@ export default function Region({route, navigation}){
         <View>
             <ScrollView>
                 {pokemons.map(pokemon => (
-                    <ButtonSelectPokemon name={pokemon.pokemon_species.name} navigation={navigation}/>
+                    <ButtonSelectPokemon name={pokemon.name} navigation={navigation}/>
                 ))}
             </ScrollView>
         </View>

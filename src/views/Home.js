@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import Database from "../database/Database";
 import { ScrollView, View } from "react-native";
 import ButtonSelect from "../components/ButtonSelect";
+import Load from "./Load";
 
 export default function Home({navigation}){
 
-    const [region, setRegion] = useState([])
+    const [generations, setGenerations] = useState([])
+    const [load, setLoad] = useState(true)
+
 
     async function getRegion(){
-        const res = await Database.get(`region/`)
+        const res = await Database.get(`generation/`)
         try{
-            setRegion(res.data.results)
+            setGenerations(res.data.results)
         }catch(error){
             console.log(error)
         }
@@ -20,12 +23,21 @@ export default function Home({navigation}){
         getRegion()
     }, [])
 
+    useEffect(()=> {
+        setTimeout(()=>{
+            setLoad(false)
+        }, 3500)
+    })
+
+    if(load) return <Load/>
+
     return(
-        <ScrollView style={{flex: 1}}>
-            {region.map( regions => (
-                <ButtonSelect name={regions.name} navigation={navigation} option="Region"/>
-            ))}
-            <ButtonSelect name="Pesquisar Pokemons" navigation={navigation} option="AllPokemons"/>
-        </ScrollView>
+        <View style={{justifyContent: "center", alignItems: "center"}}> 
+            <ScrollView>
+                {generations.map( generation => (
+                    <ButtonSelect name={generation.name} navigation={navigation} option="Region"/>
+                ))}
+            </ScrollView>
+        </View>
     )
 }

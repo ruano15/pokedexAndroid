@@ -9,7 +9,7 @@ export function AllPokemons({navigation}){
 
     return(
         <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-            <TextInput style={styles.textinput} placeholder="Nome do Pokemon" value={nome} onChangeText={setNome}/>
+            <TextInput style={styles.textinput} placeholder="Nome ou Id do Pokemon" value={nome} onChangeText={setNome}/>
             <TouchableOpacity style={styles.botao} onPress={() => {
                 Database.get(`pokemon/${nome}`)
                 navigation.navigate('Pokemon', {names: nome})
@@ -21,11 +21,13 @@ export function AllPokemons({navigation}){
 const styles = StyleSheet.create({
 
     textinput: {
-        fontSize: 30,
+        fontSize: 25,
         textAlign: "center",
         borderBottomColor: "black",
         width: 300,
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        textTransform: "lowercase",
+        color: "black"
     },
     txtBotao:{
         fontSize: 25,

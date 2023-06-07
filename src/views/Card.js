@@ -3,6 +3,8 @@ import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from
 import Database from "../database/Database";
 import typesDatabase from "../database/typesDatabase"
 import Load from "./Load";
+import estrelaVazada from "../images/estrelaVazada.png"
+import estrelaAmarela from "../images/estrelaAmarela.png"
 
 export default function Card({route}){
 
@@ -12,6 +14,7 @@ export default function Card({route}){
     const [id, setId] = useState("")
     const [shyne, setShyne] = useState('img1')
     const [load, setLoad] = useState(true)
+    const [estrela, setEstrela] = useState('img1')
 
     async function getPokemon(){
         try{
@@ -26,17 +29,28 @@ export default function Card({route}){
     }
 
     let imagem = {
-        img1: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
-        img2: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${id}.png`
+        img1: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+        img2: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${id}.png`
+    }
+
+    let imgEstrela ={
+        img1: estrelaVazada,
+        img2: estrelaAmarela,
     }
 
     function tradeShyni(){
         setShyne(state => state === 'img1' ? 'img2': 'img1')
     }
 
+    function tradeEstrela(){
+        setEstrela(state => state === 'img1' ? 'img2': 'img1')
+        console.log(pokemon)
+    }
+
     useEffect(() => {
         getPokemon()
     }, [])
+    
     useEffect(()=> {
         setTimeout(()=>{
             setLoad(false)
@@ -47,12 +61,18 @@ export default function Card({route}){
 
     return(
         <View>
+                <View style={{marginLeft: 5, marginTop: 5}}>
+                    <TouchableOpacity onPress={tradeEstrela}>
+                        <ImageBackground source={imgEstrela[estrela]}
+                        style={{width: 30, height: 30}}/>
+                    </TouchableOpacity>
+                </View>
             <View style={styles.container}>
                 <TouchableOpacity onPress={tradeShyni}>
                     <ImageBackground source={{uri: imagem[shyne]}}
-                    style={{width: 200, height: 200, resizeMode: "stretch"}} />
+                    style={{width: 150, height: 150, resizeMode: "stretch"}} />
                 </TouchableOpacity>
-                <Text style={styles.name}>{pokemon}</Text>
+                <Text adjustsFontSizeToFit style={styles.name}>{pokemon} #{id}</Text>
                 <View style={styles.typeContainer}>
                     {type.map(Type => (
                         <View style={{alignItems: "center"}}>
@@ -68,7 +88,7 @@ export default function Card({route}){
                         <Text style={styles.status} adjustsFontSizeToFit>{statos.stat.name}: {statos.base_stat}</Text>
                         <TouchableOpacity 
                             style={{backgroundColor: "red",
-                                width: 200*(statos.base_stat/100),
+                                width: 100*(statos.base_stat/100),
                                 height: 10,
                                 borderRadius: 5}} 
                             disabled/>
@@ -85,7 +105,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     name:{
-        fontSize: 40,
+        fontSize: 30,
         color: "black",
         textTransform:"uppercase",
     },
